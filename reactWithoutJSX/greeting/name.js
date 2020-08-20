@@ -4,10 +4,18 @@ class Greeting extends React.Component {
   }
 
   render() {
-    const para = React.createElement('p', null, `Hello ${this.props.name}`);
+    const { color } = this.props;
+    const para = React.createElement(
+      'p',
+      { style: { color } },
+      `Hello ${this.props.name}`
+    );
     return para;
   }
 }
 
 const root = document.getElementById('root');
-ReactDOM.render(React.createElement(Greeting, { name: 'sukhi' }), root);
+ReactDOM.render(
+  React.createElement(Greeting, { name: 'sukhi', color: 'blue' }),
+  root
+);
