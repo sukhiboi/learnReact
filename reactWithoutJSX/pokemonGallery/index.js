@@ -27,6 +27,7 @@ class Pokemon extends React.Component {
     const style = {
       display: 'flex',
       flexDirection: 'column',
+      justifyContent: 'center',
       width: 100,
       textAlign: 'center',
       margin: 10,
