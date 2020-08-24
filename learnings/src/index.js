@@ -2,7 +2,7 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 
 // import HelloWorld from './HelloWorld';
-import PokemonGallery from './pokemonGallery/Gallery';
+import PokemonGallery from './pokemonGallery/PokemonGallery';
 
 ReactDOM.render(
   <React.StrictMode>
