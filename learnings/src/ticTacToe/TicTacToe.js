@@ -6,38 +6,44 @@ class TicTacToe extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      users: [
-        { name: 'sukhdev', symbol: 'X' },
-        { name: 'someone', symbol: 'O' },
-      ],
-      currentUser: 0,
-      boardValues: Array.from({ length: 9 }, () => ''),
+      currentSymbol: 'X',
+      board: {
+        1: '',
+        2: '',
+        3: '',
+        4: '',
+        5: '',
+        6: '',
+        7: '',
+        8: '',
+        9: '',
+      },
     };
-    this.markField = this.markField.bind(this);
+    this.updateGame = this.updateGame.bind(this);
   }
 
-  markField(fieldId) {
+  updateGame(fieldId) {
     this.setState(state => {
-      const newBoardValues = state.boardValues.slice();
-      const currentUser = state.users[state.currentUser];
-      newBoardValues[fieldId] = currentUser.symbol;
       return {
-        boardValues: newBoardValues,
-        currentUser: state.currentUser === 1 ? 0 : 1,
+        board: { ...state.board, [fieldId]: state.currentSymbol },
+        currentSymbol: state.currentSymbol === 'X' ? 'O' : 'X',
       };
     });
   }
 
   render() {
+    const fieldIds = Object.keys(this.state.board);
+    const fieldValues = fieldIds.map(field => this.state.board[field]);
     return (
       <div className='board'>
-        {this.state.boardValues.map((fieldValue, id) => {
+        {fieldValues.map((fieldValue, id) => {
+          const fieldId = ++id;
           return (
             <Field
               symbol={fieldValue}
-              id={id}
-              key={id}
-              onClick={this.markField}
+              id={fieldId}
+              key={fieldId}
+              onClick={this.updateGame}
             />
           );
         })}
