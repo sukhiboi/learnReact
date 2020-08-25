@@ -1,0 +1,21 @@
+.board {
+  display: flex;
+  flex-wrap: wrap;
+  width: 8rem;
+}
+
+.field {
+  border: 1px solid #000;
+  padding: 1rem;
+  width: 20px;
+  text-align: center;
+  box-sizing: border-box;
+  position: relative;
+}
+
+.symbol {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
