@@ -2,17 +2,6 @@ import React from 'react';
 import Field from './Field';
 import './tictactoe.css';
 
-const winningCombinations = [
-  [1, 2, 3],
-  [4, 5, 6],
-  [7, 8, 9],
-  [1, 4, 7],
-  [2, 5, 8],
-  [3, 6, 9],
-  [1, 5, 9],
-  [3, 5, 7],
-];
-
 class TicTacToe extends React.Component {
   constructor(props) {
     super(props);
@@ -23,15 +12,16 @@ class TicTacToe extends React.Component {
       }, {}),
       isGameFinished: false,
     };
-
     this.updateGame = this.updateGame.bind(this);
   }
 
   updateGame(fieldId) {
     this.setState(state => {
       if (state.board[fieldId] !== '') return state;
-      const board = { ...state.board, [fieldId]: state.currentPlayerSymbol };
+      const board = { ...state.board };
+      board[fieldId] = state.currentPlayerSymbol;
       const currentPlayerSymbol = state.currentPlayerSymbol === 'X' ? 'O' : 'X';
+      const { winningCombinations } = this.props;
       const isGameFinished = winningCombinations.some(combination => {
         return combination.every(fieldId => {
           return board[fieldId] === state.currentPlayerSymbol;
@@ -49,9 +39,7 @@ class TicTacToe extends React.Component {
 
   render() {
     if (this.state.isGameFinished)
-      return (
-        <div className='player-win'>{this.state.currentPlayerSymbol} won</div>
-      );
+      return <div>{this.state.currentPlayerSymbol} won</div>;
     const fieldIds = Object.keys(this.state.board);
     const fields = fieldIds.map(id => {
       return (
@@ -65,11 +53,9 @@ class TicTacToe extends React.Component {
     });
     return (
       <div>
-        <span className='heading'>Tic Tac Toe</span>
+        <span>Tic Tac Toe</span>
         <div className='board'>{fields}</div>
-        <span className='player-info'>
-          {this.state.currentPlayerSymbol}'s turn
-        </span>
+        <span>{this.state.currentPlayerSymbol}'s turn</span>
       </div>
     );
   }
