@@ -49,7 +49,9 @@ class TicTacToe extends React.Component {
 
   render() {
     if (this.state.isGameFinished)
-      return <div>{this.state.currentPlayerSymbol} won</div>;
+      return (
+        <div className='player-win'>{this.state.currentPlayerSymbol} won</div>
+      );
     const fieldIds = Object.keys(this.state.board);
     const fields = fieldIds.map(id => {
       return (
