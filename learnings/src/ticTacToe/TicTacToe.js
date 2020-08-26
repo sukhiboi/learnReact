@@ -26,29 +26,30 @@ class TicTacToe extends React.Component {
   }
 
   updateGame(fieldId) {
-    const board = { ...this.state.board, [fieldId]: this.state.symbol };
-    const symbol = this.state.symbol === 'X' ? 'O' : 'X';
-    const gameFinished = winningCombinations.some(c => {
-      return c.every(f => board[f] === this.state.symbol);
+    this.setState(state => {
+      if (state.board[fieldId] !== '') return state;
+      const board = { ...state.board, [fieldId]: state.symbol };
+      const symbol = state.symbol === 'X' ? 'O' : 'X';
+      const gameFinished = winningCombinations.some(c => {
+        return c.every(f => board[f] === state.symbol);
+      });
+      return {
+        board,
+        gameFinished,
+        symbol: gameFinished ? state.symbol : symbol,
+      };
     });
-    this.setState(state => ({
-      board,
-      gameFinished,
-      symbol: gameFinished ? state.symbol : symbol,
-    }));
   }
 
   render() {
     if (this.state.gameFinished) return <div>{this.state.symbol} won</div>;
     const fieldIds = Object.keys(this.state.board);
-    const fieldValues = fieldIds.map(f => this.state.board[f]);
-    const fields = fieldValues.map((fieldValue, id) => {
-      const fieldId = ++id;
+    const fields = fieldIds.map(id => {
       return (
         <Field
-          symbol={fieldValue}
-          id={fieldId}
-          key={fieldId}
+          symbol={this.state.board[id]}
+          id={id}
+          key={id}
           onClick={this.updateGame}
         />
       );
