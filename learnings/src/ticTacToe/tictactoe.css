@@ -1,7 +1,31 @@
+.heading {
+  position: absolute;
+  top: 5%;
+  left: 50%;
+  transform: translateX(-50%);
+  font-family: Helvetica;
+  font-size: 3rem;
+}
+
 .board {
   display: flex;
   flex-wrap: wrap;
-  width: 8rem;
+  width: 6.4rem;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%) scale(4);
+  font-family: Helvetica;
+  font-weight: 900;
+}
+
+.player-info {
+  position: absolute;
+  top: 90%;
+  left: 50%;
+  transform: translateX(-50%);
+  font-family: Helvetica;
+  font-size: 2rem;
 }
 
 .field {
