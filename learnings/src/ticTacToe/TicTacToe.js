@@ -18,17 +18,7 @@ class TicTacToe extends React.Component {
     super(props);
     this.state = {
       symbol: 'X',
-      board: {
-        1: '',
-        2: '',
-        3: '',
-        4: '',
-        5: '',
-        6: '',
-        7: '',
-        8: '',
-        9: '',
-      },
+      board: [...Array(9)].reduce((b, _, i) => ({ ...b, [++i]: '' }), {}),
       gameFinished: false,
     };
 
@@ -36,24 +26,22 @@ class TicTacToe extends React.Component {
   }
 
   updateGame(fieldId) {
-    this.setState(state => {
-      const board = { ...state.board, [fieldId]: state.symbol };
-      const symbol = state.symbol === 'X' ? 'O' : 'X';
-      const gameFinished = winningCombinations.some(c => {
-        return c.every(f => board[f] === state.symbol);
-      });
-      return {
-        board,
-        gameFinished,
-        symbol: gameFinished ? state.symbol : symbol,
-      };
+    const board = { ...this.state.board, [fieldId]: this.state.symbol };
+    const symbol = this.state.symbol === 'X' ? 'O' : 'X';
+    const gameFinished = winningCombinations.some(c => {
+      return c.every(f => board[f] === this.state.symbol);
     });
+    this.setState(state => ({
+      board,
+      gameFinished,
+      symbol: gameFinished ? state.symbol : symbol,
+    }));
   }
 
   render() {
     if (this.state.gameFinished) return <div>{this.state.symbol} won</div>;
     const fieldIds = Object.keys(this.state.board);
-    const fieldValues = fieldIds.map(field => this.state.board[field]);
+    const fieldValues = fieldIds.map(f => this.state.board[f]);
     const fields = fieldValues.map((fieldValue, id) => {
       const fieldId = ++id;
       return (
