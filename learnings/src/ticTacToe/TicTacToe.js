@@ -6,56 +6,59 @@ class TicTacToe extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      currentPlayerSymbol: 'X',
-      board: Array.from({ length: 9 }).reduce((fields, _, idx) => {
-        return { ...fields, [++idx]: '' };
-      }, {}),
-      isGameFinished: false,
+      currentPlayer: { name: 'sukhi', symbol: 'X' },
+      nextPlayer: { name: 'someone', symbol: 'O' },
+      board: Array.from({ length: 9 }, () => ''),
+      isGameDrawn: false,
+      winner: null,
     };
     this.updateGame = this.updateGame.bind(this);
   }
 
-  updateGame(fieldId) {
-    this.setState(state => {
-      if (state.board[fieldId] !== '') return state;
-      const board = { ...state.board };
-      board[fieldId] = state.currentPlayerSymbol;
-      const currentPlayerSymbol = state.currentPlayerSymbol === 'X' ? 'O' : 'X';
-      const { winningCombinations } = this.props;
-      const isGameFinished = winningCombinations.some(combination => {
-        return combination.every(fieldId => {
-          return board[fieldId] === state.currentPlayerSymbol;
-        });
+  hasWon(board, currentPlayer) {
+    const winningCombinations = [
+      [0, 1, 2],
+      [3, 4, 5],
+      [6, 7, 8],
+      [0, 3, 6],
+      [1, 4, 7],
+      [2, 5, 8],
+      [0, 4, 8],
+      [2, 4, 6],
+    ];
+    return winningCombinations.some(combination => {
+      return combination.every(fieldId => {
+        return board[fieldId] === currentPlayer.symbol;
       });
+    });
+  }
+
+  updateGame(fieldId) {
+    this.setState(({ board, currentPlayer, nextPlayer }) => {
+      if (board[fieldId] !== '') return {};
+      const updatedBoard = [...board];
+      updatedBoard[fieldId] = currentPlayer.symbol;
       return {
-        board,
-        isGameFinished,
-        currentPlayerSymbol: isGameFinished
-          ? state.currentPlayerSymbol
-          : currentPlayerSymbol,
+        board: updatedBoard,
+        isGameDrawn: updatedBoard.every(value => value !== ''),
+        winner: this.hasWon(updatedBoard, currentPlayer) ? currentPlayer : null,
+        currentPlayer: nextPlayer,
+        nextPlayer: currentPlayer,
       };
     });
   }
 
   render() {
-    if (this.state.isGameFinished)
-      return <div>{this.state.currentPlayerSymbol} won</div>;
-    const fieldIds = Object.keys(this.state.board);
-    const fields = fieldIds.map(id => {
-      return (
-        <Field
-          symbol={this.state.board[id]}
-          id={id}
-          key={id}
-          onClick={this.updateGame}
-        />
-      );
+    if (this.state.winner) return <div>{this.state.winner.name} won</div>;
+    if (this.state.isGameDrawn) return <div>Game tie</div>;
+    const tiles = this.state.board.map((value, id) => {
+      return <Field value={value} id={id} key={id} onClick={this.updateGame} />;
     });
     return (
       <div>
         <span>Tic Tac Toe</span>
-        <div className='board'>{fields}</div>
-        <span>{this.state.currentPlayerSymbol}'s turn</span>
+        <div className='board'>{tiles}</div>
+        <span>{this.state.currentPlayer.name}'s turn</span>
       </div>
     );
   }

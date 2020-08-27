@@ -13,7 +13,7 @@
   position: relative;
 }
 
-.symbol {
+.value {
   position: absolute;
   top: 50%;
   left: 50%;
