@@ -56,9 +56,9 @@ class TicTacToe extends React.Component {
     ));
     return (
       <div>
-        <span>Tic Tac Toe</span>
+        <div>Tic Tac Toe</div>
         <div className='board'>{tiles}</div>
-        <span>{this.state.currentPlayer.name}'s turn</span>
+        <div>{this.state.currentPlayer.name}'s turn</div>
       </div>
     );
   }
