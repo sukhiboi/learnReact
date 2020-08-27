@@ -51,9 +51,9 @@ class TicTacToe extends React.Component {
   render() {
     if (this.state.winner) return <div>{this.state.winner.name} won</div>;
     if (this.state.isGameDrawn) return <div>Game tie</div>;
-    const tiles = this.state.board.map((value, id) => {
-      return <Field value={value} id={id} key={id} onClick={this.updateGame} />;
-    });
+    const tiles = this.state.board.map((value, id) => (
+      <Field value={value} id={id} key={id} onClick={this.updateGame} />
+    ));
     return (
       <div>
         <span>Tic Tac Toe</span>
