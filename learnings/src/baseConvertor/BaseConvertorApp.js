@@ -18,7 +18,9 @@ class BaseConvertorApp extends React.Component {
 
   updateValue(e, base) {
     const decimalValue = this.convertToDecimal(e.target.value, base);
-    this.setState({ value: isNaN(decimalValue) ? 0 : decimalValue });
+    this.setState(state => {
+      return { value: isNaN(decimalValue) ? state.value : decimalValue };
+    });
   }
 
   render() {
