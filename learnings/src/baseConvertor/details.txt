@@ -1,0 +1,22 @@
+state
+------
+{
+    value: 10 <Decimal>
+}
+
+Component Hierarchy
+--------------------
+
+<div>
+    <BaseConvertor base="2" value="10" onChange="this.updateValue">
+    <BaseConvertor base="3" value="10" onChange="this.updateValue">
+    .
+    .
+    <BaseConvertor base="16" value="10" onChange="this.updateValue">
+</div> 
+
+Flow
+---------
+
+1. value in state -> passed to BaseConvertor -> Converted to that base and show
+2. change in any input -> this.updateValue -> convert that number to base 10 -> update the state -> 1
