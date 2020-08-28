@@ -15,11 +15,10 @@ class Base extends React.Component {
 
   render() {
     const { value, base } = this.props;
-    const convertedValue = value ? value.toString(base) : '';
     return (
       <div style={{ fontFamily: 'sans-serif', margin: '10px 0' }}>
         <span style={{ padding: 10 }}>Base {base}</span>
-        <input value={convertedValue} onChange={this.handleChange} />
+        <input value={value.toString(base)} onChange={this.handleChange} />
       </div>
     );
   }
