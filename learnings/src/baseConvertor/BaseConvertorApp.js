@@ -8,20 +8,17 @@ class BaseConvertorApp extends React.Component {
     this.updateValue = this.updateValue.bind(this);
   }
 
-  convertToDecimal(number, base) {
-    const digits = number.split('').reverse();
-    return digits.reduce((decimal, digit, idx) => {
-      if (digit >= base) return NaN;
-      return +digit * Math.pow(base, idx) + decimal;
-    }, 0);
+  isValidNum(number, base) {
+    return [...number].every(digit => +digit >= 0 && +digit < base);
   }
 
   updateValue(e, base) {
-    const decimalValue = this.convertToDecimal(e.target.value, base);
-    this.setState(state => {
-      return { value: isNaN(decimalValue) ? state.value : decimalValue };
-    });
-  }
+    const newValue = e.target.value;
+    const isValidNum = this.isValidNum(newValue, base);
+    this.setState(({ value }) => ({
+      value: isValidNum ? parseInt(newValue, base) : value,
+    }));
+  } 
 
   render() {
     const bases = Array.from({ length: 15 }, (_, i) => i + 2);
