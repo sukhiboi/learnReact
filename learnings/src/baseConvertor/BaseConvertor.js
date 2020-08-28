@@ -9,7 +9,8 @@ class BaseConvertor extends React.Component {
   }
 
   updateValue(e, base) {
-    this.setState(() => ({ value: parseInt(e.target.value, base) }));
+    const input = e.target.value;
+    this.setState(() => ({ value: parseInt(input, base) }));
   }
 
   render() {
