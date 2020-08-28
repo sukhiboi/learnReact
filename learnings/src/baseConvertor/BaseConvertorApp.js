@@ -8,17 +8,14 @@ class BaseConvertorApp extends React.Component {
     this.updateValue = this.updateValue.bind(this);
   }
 
-  isValidNum(number, base) {
-    return [...number].every(digit => +digit >= 0 && +digit < base);
-  }
-
   updateValue(e, base) {
     const newValue = e.target.value;
-    const isValidNum = this.isValidNum(newValue, base);
+    const lastDigit = Number(newValue.slice(-1));
+    const isValidNum = isNaN(parseInt(lastDigit, base));
     this.setState(({ value }) => ({
-      value: isValidNum ? parseInt(newValue, base) : value,
+      value: isValidNum ? value : parseInt(newValue, base),
     }));
-  } 
+  }
 
   render() {
     const bases = Array.from({ length: 15 }, (_, i) => i + 2);
