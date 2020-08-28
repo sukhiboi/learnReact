@@ -9,11 +9,7 @@ class BaseConvertor extends React.Component {
   }
 
   updateValue(e, base) {
-    const input = e.target.value;
-    const parsed = parseInt(Number(input.slice(-1)), base);
-    this.setState(({ value }) => ({
-      value: isNaN(parsed) ? value : parseInt(input, base),
-    }));
+    this.setState(() => ({ value: parseInt(e.target.value, base) }));
   }
 
   render() {
