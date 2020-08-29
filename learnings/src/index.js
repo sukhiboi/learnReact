@@ -1,11 +1,11 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 
-import BaseConvertor from './baseConvertor/BaseConvertor';
+import TodoList from './todoList/TodoList';
 
 ReactDOM.render(
   <React.StrictMode>
-    <BaseConvertor />
+    <TodoList />
   </React.StrictMode>,
   document.getElementById('root')
 );
