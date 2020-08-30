@@ -1,17 +1,14 @@
 import React from 'react';
+import './todoItem.css';
 
 const TodoItem = function (props) {
   const { todo, onClick } = props;
-  const { content, id, isCompleted } = todo;
-  const textDecoration = isCompleted ? 'line-through' : 'none';
-  const bulletColor = isCompleted ? 'mediumseagreen' : 'lightblue';
+  const { content, id, state } = todo;
+  const states = ['created', 'in-progress', 'done'];
   return (
-    <div
-      style={{ display: 'flex', padding: 5, fontFamily: 'sans-serif' }}
-      onClick={() => onClick(id)}
-    >
-      <div style={{ width: 10, backgroundColor: bulletColor }}></div>
-      <span style={{ textDecoration, paddingLeft: 10 }}>{content}</span>
+    <div onClick={() => onClick(id)} className={`${states[state]} todo-item`}>
+      <div></div>
+      <span>{content}</span>
     </div>
   );
 };

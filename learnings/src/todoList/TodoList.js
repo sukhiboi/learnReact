@@ -15,7 +15,7 @@ class TodoList extends React.Component {
       const todo = {
         content,
         id: state.todos.length + 1,
-        isCompleted: false,
+        state: 0,
       };
       return {
         todos: [...state.todos, todo],
@@ -27,9 +27,10 @@ class TodoList extends React.Component {
     this.setState(state => {
       const index = state.todos.findIndex(todo => todo.id === id);
       const todo = state.todos[index];
-      const newTodos = [...state.todos];
-      newTodos.splice(index, 1, { ...todo, isCompleted: !todo.isCompleted });
-      return { todos: newTodos };
+      const updatedTodo = { ...todo, state: (todo.state + 1) % 3 };
+      const todos = [...state.todos];
+      todos[index] = updatedTodo;
+      return { todos };
     });
   }
 
