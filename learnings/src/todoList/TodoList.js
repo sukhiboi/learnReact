@@ -35,21 +35,21 @@ class TodoList extends React.Component {
   }
 
   render() {
+    const headerStyles = {
+      fontFamily: 'sans-serif',
+      fontSize: 20,
+      fontWeight: 700,
+      paddingBottom: 10,
+    };
+
+    const todos = this.state.todos.map(todo => (
+      <TodoItem todo={todo} onClick={this.toggleTodo} key={todo.id} />
+    ));
+
     return (
       <div>
-        <div
-          style={{
-            fontFamily: 'sans-serif',
-            fontSize: 20,
-            fontWeight: 700,
-            paddingBottom: 10,
-          }}
-        >
-          Todo
-        </div>
-        {this.state.todos.map(todo => (
-          <TodoItem todo={todo} onClick={this.toggleTodo} key={todo.id} />
-        ))}
+        <div style={headerStyles}>Todo</div>
+        {todos}
         <InputBar onEnter={this.addNewTodo} />
       </div>
     );
