@@ -11,12 +11,16 @@ class TodoList extends React.Component {
   }
 
   addNewTodo(content) {
-    const todo = {
-      content,
-      id: this.state.todos.length + 1,
-      isCompleted: false,
-    };
-    this.setState(state => ({ todos: [...state.todos, todo] }));
+    this.setState(state => {
+      const todo = {
+        content,
+        id: state.todos.length + 1,
+        isCompleted: false,
+      };
+      return {
+        todos: [...state.todos, todo],
+      };
+    });
   }
 
   toggleTodo(id) {
