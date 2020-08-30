@@ -20,11 +20,13 @@ class TodoList extends React.Component {
   }
 
   toggleTodo(id) {
-    const index = this.state.todos.findIndex(todo => todo.id === id);
-    const todo = this.state.todos[index];
-    const newTodos = [...this.state.todos];
-    newTodos.splice(index, 1, { ...todo, isCompleted: !todo.isCompleted });
-    this.setState(() => ({ todos: newTodos }));
+    this.setState(state => {
+      const index = state.todos.findIndex(todo => todo.id === id);
+      const todo = state.todos[index];
+      const newTodos = [...state.todos];
+      newTodos.splice(index, 1, { ...todo, isCompleted: !todo.isCompleted });
+      return { todos: newTodos };
+    });
   }
 
   render() {
