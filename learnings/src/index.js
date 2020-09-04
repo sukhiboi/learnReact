@@ -1,11 +1,11 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 
-import Input from './hoc/Input';
+import Counter from './hooks/Counter';
 
 ReactDOM.render(
   <React.StrictMode>
-    <Input />
+    <Counter />
   </React.StrictMode>,
   document.getElementById('root')
 );
