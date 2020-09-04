@@ -1,11 +1,11 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 
-import TodoList from './todoList/TodoList';
+import Input from './hoc/Input';
 
 ReactDOM.render(
   <React.StrictMode>
-    <TodoList />
+    <Input />
   </React.StrictMode>,
   document.getElementById('root')
 );
