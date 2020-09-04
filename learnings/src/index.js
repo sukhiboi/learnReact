@@ -1,11 +1,11 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 
-import Counter from './hooks/Counter';
+import UseEffectComponent from './hooks/useEffect';
 
 ReactDOM.render(
   <React.StrictMode>
-    <Counter />
+    <UseEffectComponent />
   </React.StrictMode>,
   document.getElementById('root')
 );
