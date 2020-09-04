@@ -9,11 +9,11 @@ const fetchPokemonDetails = (id, callback) => {
 };
 
 export default props => {
-  const [seconds, setSeconds] = useState(1);
+  const [seconds, setSeconds] = useState(NaN);
   const [pokemon, setPokemon] = useState(null);
 
   useEffect(() => {
-    fetchPokemonDetails(seconds, data => setPokemon(data));
+    fetchPokemonDetails(seconds, setPokemon);
   }, [seconds]);
 
   useEffect(() => {
@@ -21,20 +21,25 @@ export default props => {
   });
 
   useEffect(() => {
-    const id = setInterval(() => setSeconds(seconds => seconds + 1), 3000);
+    const id = setInterval(() => setSeconds(seconds => seconds + 1), 1000);
     return () => clearInterval(id);
   }, []);
 
   return (
     <div>
-      <p>{seconds} </p>
+      {isNaN(seconds) ? (
+        <button onClick={() => setSeconds(1)}>start</button>
+      ) : (
+        <></>
+      )}
+
       {pokemon ? (
         <div>
           <p>{pokemon.name}</p>
           <img src={pokemon.img} alt={pokemon.name} />
         </div>
       ) : (
-        <p>Loading...</p>
+        <></>
       )}
     </div>
   );
