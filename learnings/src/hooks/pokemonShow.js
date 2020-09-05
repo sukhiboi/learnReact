@@ -20,15 +20,10 @@ const fetchPokemonDetails = (id, callback) => {
     .then(data => callback(data));
 };
 
-const usePokemon = function (id) {
-  const [pokemon, setPokemon] = useState(null);
-  useEffect(() => fetchPokemonDetails(id, setPokemon), [id]);
-  return pokemon;
-};
-
 export default () => {
   const [seconds, isStarted, setStarted] = useTimer();
-  const pokemon = usePokemon(seconds);
+  const [pokemon, setPokemon] = useState(null);
+  useEffect(() => fetchPokemonDetails(seconds, setPokemon), [seconds]);
 
   return (
     <div>
