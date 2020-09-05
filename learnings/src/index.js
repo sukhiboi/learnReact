@@ -1,6 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 
-import UseEffectComponent from './hooks/useEffect';
+import PokemonShow from './hooks/pokemonShow';
 
-ReactDOM.render(<UseEffectComponent />, document.getElementById('root'));
+ReactDOM.render(<PokemonShow />, document.getElementById('root'));

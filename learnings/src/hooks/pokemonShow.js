@@ -1,5 +1,17 @@
 import React, { useEffect, useState } from 'react';
 
+const useTimer = function () {
+  const [seconds, setSeconds] = useState(0);
+  const [isStarted, setStarted] = useState(false);
+  useEffect(() => {
+    if (isStarted) {
+      const id = setInterval(() => setSeconds(seconds => seconds + 1), 1000);
+      return () => clearInterval(id);
+    }
+  }, [isStarted]);
+  return [seconds, isStarted, setStarted];
+};
+
 const fetchPokemonDetails = (id, callback) => {
   const url = `https://pokeapi.co/api/v2/pokemon/${id}`;
   fetch(url)
@@ -8,21 +20,17 @@ const fetchPokemonDetails = (id, callback) => {
     .then(data => callback(data));
 };
 
-export default () => {
-  const [isStarted, setStarted] = useState(false);
-  const [seconds, setSeconds] = useState(0);
+const usePokemon = function (id) {
   const [pokemon, setPokemon] = useState(null);
-
   useEffect(() => {
-    fetchPokemonDetails(seconds, setPokemon);
-  }, [seconds]);
+    fetchPokemonDetails(id, setPokemon);
+  }, [id]);
+  return pokemon;
+};
 
-  useEffect(() => {
-    if (isStarted) {
-      const id = setInterval(() => setSeconds(seconds + 1), 1000);
-      return () => clearInterval(id);
-    }
-  }, [isStarted, seconds]);
+export default () => {
+  const [seconds, isStarted, setStarted] = useTimer();
+  const pokemon = usePokemon(seconds);
 
   return (
     <div>
