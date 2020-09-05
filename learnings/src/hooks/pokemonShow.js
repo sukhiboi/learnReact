@@ -22,9 +22,7 @@ const fetchPokemonDetails = (id, callback) => {
 
 const usePokemon = function (id) {
   const [pokemon, setPokemon] = useState(null);
-  useEffect(() => {
-    fetchPokemonDetails(id, setPokemon);
-  }, [id]);
+  useEffect(() => fetchPokemonDetails(id, setPokemon), [id]);
   return pokemon;
 };
 
