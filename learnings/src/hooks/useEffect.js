@@ -9,7 +9,7 @@ const fetchPokemonDetails = (id, callback) => {
 };
 
 export default props => {
-  const [seconds, setSeconds] = useState(NaN);
+  const [seconds, setSeconds] = useState(() => NaN);
   const [pokemon, setPokemon] = useState(null);
 
   useEffect(() => {
